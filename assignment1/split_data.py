@@ -1,3 +1,4 @@
+# divide data into training data and validation data
 DATA = 'data/spam_train.txt'
 TRAINING = 'data/train.txt'
 VALIDATION = 'data/validation.txt'

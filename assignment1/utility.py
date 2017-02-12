@@ -1,8 +1,3 @@
-import numpy as np
-
-def dot(left, right):
-  return sum(l * r for l, r in zip(left, right))
-
 def words(data, X):
   occurrence = {}
   for entry in data:
@@ -18,12 +13,13 @@ def feature_vector(entry, vocabulary):
   return list(int(word in entry) for word in vocabulary)
 
 def format_data(data, vocabulary):
+  import numpy as np
   X, Y = [], []
   for entry in data:
     words = entry.split(' ')
     X.append(feature_vector(words[1:], vocabulary))
     Y.append(1 if words[0] == '1' else -1)
-  return np.array(X), np.array(Y)
+  return np.array(X), np.array(Y).reshape((len(Y), 1))
 
 def format_dataset(X):
   training_data = list(open('data/train.txt', 'r'))
@@ -32,6 +28,3 @@ def format_dataset(X):
   validation_X, validation_Y = format_data(list(open('data/validation.txt', 'r')), vocabulary)
   test_X, test_Y = format_data(list(open('data/spam_test.txt', 'r')), vocabulary)
   return training_X, training_Y, validation_X, validation_Y, test_X, test_Y, vocabulary
-
-if __name__ is '__main__':
-  format_dataset(1200)
